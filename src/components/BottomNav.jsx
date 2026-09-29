@@ -20,10 +20,10 @@ export default function BottomNav() {
         <ReorderIcon />
         <span>Reorder</span>
       </NavLink>
-      <span className="nav-item" aria-disabled="true">
+      <NavLink to="/insights" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
         <InsightsIcon />
         <span>Insights</span>
-      </span>
+      </NavLink>
     </nav>
   )
 }
