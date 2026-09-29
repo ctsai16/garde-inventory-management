@@ -30,27 +30,29 @@ export default function ItemDetailModal({ item, onClose }) {
           </span>
         </div>
 
-        <div className="detail-row">
-          <div className="field-label">Description</div>
-          <div className="detail-value">{item.description || 'No description added'}</div>
-        </div>
+        <div className="field-list">
+          <div className="field-group">
+            <div className="field-label">Description</div>
+            <div className="detail-value">{item.description || 'No description added'}</div>
+          </div>
 
-        <div className="field-row">
-          <div className="detail-row">
-            <div className="field-label">Count</div>
-            <div className="detail-value">
-              {item.quantity} {item.unit}
+          <div className="field-row">
+            <div className="field-group">
+              <div className="field-label">Count</div>
+              <div className="detail-value">
+                {item.quantity} {item.unit}
+              </div>
+            </div>
+            <div className="field-group">
+              <div className="field-label">Minimum quantity</div>
+              <div className="detail-value">{item.minQuantity}</div>
             </div>
           </div>
-          <div className="detail-row">
-            <div className="field-label">Minimum quantity</div>
-            <div className="detail-value">{item.minQuantity}</div>
-          </div>
-        </div>
 
-        <div className="detail-row">
-          <div className="field-label">Expiration date</div>
-          <div className="detail-value">{formatExpiration(item.expirationDate)}</div>
+          <div className="field-group">
+            <div className="field-label">Expiration date</div>
+            <div className="detail-value">{formatExpiration(item.expirationDate)}</div>
+          </div>
         </div>
       </div>
     </div>

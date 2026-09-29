@@ -37,50 +37,56 @@ export default function AddItemModal({ onClose, onSubmit }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <label className="field-label" htmlFor="item-name">
-            Item name
-          </label>
-          <input
-            id="item-name"
-            className="field-input"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            placeholder="e.g. Soju"
-            required
-          />
+        <form className="field-list" onSubmit={handleSubmit}>
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-name">
+              Item name
+            </label>
+            <input
+              id="item-name"
+              className="field-input"
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="e.g. Soju"
+              required
+            />
+          </div>
 
-          <label className="field-label" htmlFor="item-description">
-            Description
-          </label>
-          <textarea
-            id="item-description"
-            className="field-input field-textarea"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            placeholder="Optional notes"
-            rows={2}
-          />
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-description">
+              Description
+            </label>
+            <textarea
+              id="item-description"
+              className="field-input field-textarea"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              placeholder="Optional notes"
+              rows={2}
+            />
+          </div>
 
-          <label className="field-label" htmlFor="item-category">
-            Category
-          </label>
-          <select
-            id="item-category"
-            className="field-input"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
-          >
-            {CATEGORIES.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-category">
+              Category
+            </label>
+            <select
+              id="item-category"
+              className="field-input"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              {CATEGORIES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="field-row">
-            <div>
+            <div className="field-group">
               <label className="field-label" htmlFor="item-quantity">
                 Count
               </label>
@@ -95,7 +101,7 @@ export default function AddItemModal({ onClose, onSubmit }) {
                 required
               />
             </div>
-            <div>
+            <div className="field-group">
               <label className="field-label" htmlFor="item-unit">
                 Unit
               </label>
@@ -111,30 +117,34 @@ export default function AddItemModal({ onClose, onSubmit }) {
             </div>
           </div>
 
-          <label className="field-label" htmlFor="item-min">
-            Minimum quantity
-          </label>
-          <input
-            id="item-min"
-            className="field-input"
-            type="number"
-            min="0"
-            value={minQuantity}
-            onChange={(event) => setMinQuantity(event.target.value)}
-            placeholder="0"
-            required
-          />
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-min">
+              Minimum quantity
+            </label>
+            <input
+              id="item-min"
+              className="field-input"
+              type="number"
+              min="0"
+              value={minQuantity}
+              onChange={(event) => setMinQuantity(event.target.value)}
+              placeholder="0"
+              required
+            />
+          </div>
 
-          <label className="field-label" htmlFor="item-expiration">
-            Expiration date
-          </label>
-          <input
-            id="item-expiration"
-            className="field-input"
-            type="date"
-            value={expirationDate}
-            onChange={(event) => setExpirationDate(event.target.value)}
-          />
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-expiration">
+              Expiration date
+            </label>
+            <input
+              id="item-expiration"
+              className="field-input"
+              type="date"
+              value={expirationDate}
+              onChange={(event) => setExpirationDate(event.target.value)}
+            />
+          </div>
 
           <button type="submit" className="cta-button modal-submit" disabled={!canSubmit}>
             Add Item
