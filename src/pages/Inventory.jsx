@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useInventory } from '../context/InventoryContext.jsx'
 import { SearchIcon, FilterIcon, PlusIcon } from '../components/Icons.jsx'
 import AddItemModal from '../components/AddItemModal.jsx'
+import ItemDetailModal from '../components/ItemDetailModal.jsx'
 
 const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce']
 const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods']
@@ -11,6 +12,7 @@ export default function Inventory() {
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
 
   const chips = useMemo(() => {
     const present = new Set(items.map((item) => item.category))
@@ -88,7 +90,19 @@ export default function Inventory() {
               const badgeColor = isLow ? 'var(--color-danger)' : 'var(--color-success)'
               const badgeBg = isLow ? 'var(--color-danger-bg)' : 'var(--color-success-bg)'
               return (
-                <div className="item-row" key={item.id}>
+                <div
+                  className="item-row item-row-clickable"
+                  key={item.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedItem(item)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      setSelectedItem(item)
+                    }
+                  }}
+                >
                   <div className="item-bar" style={{ background: barColor }} />
                   <div className="item-info">
                     <div className="item-name">{item.name}</div>
@@ -115,6 +129,8 @@ export default function Inventory() {
           }}
         />
       )}
+
+      {selectedItem && <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />}
     </>
   )
 }

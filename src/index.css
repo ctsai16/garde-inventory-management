@@ -370,6 +370,19 @@ a {
   border-bottom: 1px solid var(--color-divider);
 }
 
+.item-row-clickable {
+  cursor: pointer;
+}
+
+.item-row-clickable:hover {
+  background: var(--color-icon-green-bg);
+}
+
+.item-row-clickable:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
 .item-row:last-child {
   border-bottom: none;
 }
@@ -539,4 +552,36 @@ a {
 .modal-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Item detail modal */
+.detail-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.detail-category-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-chip-text);
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.detail-row {
+  margin-bottom: 16px;
+}
+
+.detail-row .field-label {
+  margin-top: 0;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.4;
 }
