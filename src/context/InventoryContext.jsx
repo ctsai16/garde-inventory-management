@@ -2,13 +2,7 @@ import { createContext, useContext, useMemo, useState } from 'react'
 
 const InventoryContext = createContext(null)
 
-const initialItems = [
-  { id: 1, name: 'Soju', quantity: 12, unit: 'bottles', minQuantity: 24, category: 'Alcohol', unitPrice: 8 },
-  { id: 2, name: 'Pork Belly', quantity: 8, unit: 'lbs', minQuantity: 20, category: 'Meat', unitPrice: 6 },
-  { id: 3, name: 'Kimchi', quantity: 18, unit: 'containers', minQuantity: 10, category: 'Produce', unitPrice: 12 },
-  { id: 4, name: 'Coca-Cola', quantity: 14, unit: 'cans', minQuantity: 48, category: 'Beverages', unitPrice: 1.5 },
-  { id: 5, name: 'Rice', quantity: 35, unit: 'lbs', minQuantity: 20, category: 'Dry Goods', unitPrice: 1.2 },
-]
+const initialItems = []
 
 export function InventoryProvider({ children }) {
   const [items] = useState(initialItems)

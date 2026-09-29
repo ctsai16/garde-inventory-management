@@ -61,7 +61,7 @@ export default function Dashboard() {
           <div className="stat-icon" style={{ background: 'var(--color-warning-bg)', color: 'var(--color-warning)' }}>
             <ClockIcon />
           </div>
-          <div className="stat-value">2</div>
+          <div className="stat-value">0</div>
           <div className="stat-label">Running out soon</div>
         </div>
         <div className="stat-card">
@@ -75,7 +75,7 @@ export default function Dashboard() {
           <div className="stat-icon" style={{ background: 'var(--color-warning-bg)', color: 'var(--color-warning)' }}>
             <ExpiringIcon />
           </div>
-          <div className="stat-value">1</div>
+          <div className="stat-value">0</div>
           <div className="stat-label">Expiring soon</div>
         </div>
       </div>

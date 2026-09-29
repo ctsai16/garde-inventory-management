@@ -64,7 +64,11 @@ export default function Inventory() {
         ))}
       </div>
 
-      {groupedSections.length === 0 && <div className="empty-state">No items match your search.</div>}
+      {groupedSections.length === 0 && (
+        <div className="empty-state">
+          {items.length === 0 ? 'No items yet. Add your first item to get started.' : 'No items match your search.'}
+        </div>
+      )}
 
       {groupedSections.map((group) => (
         <div className="category-group" key={group.category}>
