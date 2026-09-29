@@ -12,14 +12,14 @@ export default function BottomNav() {
         <InventoryIcon />
         <span>Inventory</span>
       </NavLink>
-      <span className="nav-item" aria-disabled="true">
+      <NavLink to="/scan" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
         <ScanIcon />
         <span>Scan</span>
-      </span>
-      <span className="nav-item" aria-disabled="true">
+      </NavLink>
+      <NavLink to="/reorder" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
         <ReorderIcon />
         <span>Reorder</span>
-      </span>
+      </NavLink>
       <span className="nav-item" aria-disabled="true">
         <InsightsIcon />
         <span>Insights</span>

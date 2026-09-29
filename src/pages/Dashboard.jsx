@@ -6,7 +6,6 @@ import {
   DollarIcon,
   ExpiringIcon,
   ArrowRightIcon,
-  CameraIconSmall,
   ChecklistIconSmall,
   InvoiceIconSmall,
 } from '../components/Icons.jsx'
@@ -86,25 +85,19 @@ export default function Dashboard() {
       </button>
 
       <div className="section-label">Quick actions</div>
-      <div className="quick-actions-grid">
-        <button type="button" className="quick-action">
-          <div className="quick-action-icon" style={{ background: 'var(--color-accent-bg)', color: 'var(--color-accent)' }}>
-            <CameraIconSmall />
-          </div>
-          <span className="quick-action-label">AI Camera Scan</span>
-        </button>
-        <button type="button" className="quick-action">
+      <div className="quick-actions-grid quick-actions-grid-2">
+        <Link to="/reorder" className="quick-action">
           <div className="quick-action-icon" style={{ background: 'var(--color-icon-green-bg)', color: 'var(--color-primary)' }}>
             <ChecklistIconSmall />
           </div>
           <span className="quick-action-label">Smart Reorder</span>
-        </button>
-        <button type="button" className="quick-action">
+        </Link>
+        <Link to="/scan" className="quick-action">
           <div className="quick-action-icon" style={{ background: 'var(--color-warning-bg)', color: 'var(--color-warning)' }}>
             <InvoiceIconSmall />
           </div>
           <span className="quick-action-label">Scan Invoice</span>
-        </button>
+        </Link>
       </div>
     </>
   )
