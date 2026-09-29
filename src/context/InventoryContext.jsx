@@ -1,11 +1,18 @@
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 
 const InventoryContext = createContext(null)
 
 const initialItems = []
 
 export function InventoryProvider({ children }) {
-  const [items] = useState(initialItems)
+  const [items, setItems] = useState(initialItems)
+
+  const addItem = useCallback((item) => {
+    setItems((prev) => {
+      const nextId = prev.reduce((max, existing) => Math.max(max, existing.id), 0) + 1
+      return [...prev, { id: nextId, unitPrice: 0, ...item }]
+    })
+  }, [])
 
   const stats = useMemo(() => {
     const lowStockItems = items.filter((item) => item.quantity < item.minQuantity)
@@ -21,7 +28,7 @@ export function InventoryProvider({ children }) {
     }
   }, [items])
 
-  const value = useMemo(() => ({ items, stats }), [items, stats])
+  const value = useMemo(() => ({ items, stats, addItem }), [items, stats, addItem])
 
   return <InventoryContext.Provider value={value}>{children}</InventoryContext.Provider>
 }

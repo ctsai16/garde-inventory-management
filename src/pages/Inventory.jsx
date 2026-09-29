@@ -1,14 +1,16 @@
 import { useMemo, useState } from 'react'
 import { useInventory } from '../context/InventoryContext.jsx'
-import { SearchIcon, FilterIcon } from '../components/Icons.jsx'
+import { SearchIcon, FilterIcon, PlusIcon } from '../components/Icons.jsx'
+import AddItemModal from '../components/AddItemModal.jsx'
 
 const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce']
 const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods']
 
 export default function Inventory() {
-  const { items } = useInventory()
+  const { items, addItem } = useInventory()
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   const chips = useMemo(() => {
     const present = new Set(items.map((item) => item.category))
@@ -33,7 +35,13 @@ export default function Inventory() {
 
   return (
     <>
-      <div className="inv-title">Inventory</div>
+      <div className="inv-header">
+        <div className="inv-title">Inventory</div>
+        <button type="button" className="add-item-btn" onClick={() => setIsAddModalOpen(true)}>
+          <PlusIcon />
+          Add Item
+        </button>
+      </div>
 
       <div className="search-bar">
         <SearchIcon />
@@ -97,6 +105,16 @@ export default function Inventory() {
           </div>
         </div>
       ))}
+
+      {isAddModalOpen && (
+        <AddItemModal
+          onClose={() => setIsAddModalOpen(false)}
+          onSubmit={(item) => {
+            addItem(item)
+            setIsAddModalOpen(false)
+          }}
+        />
+      )}
     </>
   )
 }
