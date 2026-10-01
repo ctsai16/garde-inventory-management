@@ -14,6 +14,10 @@ export function InventoryProvider({ children }) {
     })
   }, [])
 
+  const updateItem = useCallback((id, updates) => {
+    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updates } : item)))
+  }, [])
+
   const stats = useMemo(() => {
     const lowStockItems = items.filter((item) => item.quantity < item.minQuantity)
     const inventoryValue = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
@@ -28,7 +32,7 @@ export function InventoryProvider({ children }) {
     }
   }, [items])
 
-  const value = useMemo(() => ({ items, stats, addItem }), [items, stats, addItem])
+  const value = useMemo(() => ({ items, stats, addItem, updateItem }), [items, stats, addItem, updateItem])
 
   return <InventoryContext.Provider value={value}>{children}</InventoryContext.Provider>
 }

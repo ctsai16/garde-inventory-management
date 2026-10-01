@@ -8,11 +8,16 @@ const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce']
 const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods']
 
 export default function Inventory() {
-  const { items, addItem } = useInventory()
+  const { items, addItem, updateItem } = useInventory()
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItemId, setSelectedItemId] = useState(null)
+
+  const selectedItem = useMemo(
+    () => items.find((item) => item.id === selectedItemId) ?? null,
+    [items, selectedItemId],
+  )
 
   const chips = useMemo(() => {
     const present = new Set(items.map((item) => item.category))
@@ -95,11 +100,11 @@ export default function Inventory() {
                   key={item.id}
                   role="button"
                   tabIndex={0}
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() => setSelectedItemId(item.id)}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault()
-                      setSelectedItem(item)
+                      setSelectedItemId(item.id)
                     }
                   }}
                 >
@@ -130,7 +135,13 @@ export default function Inventory() {
         />
       )}
 
-      {selectedItem && <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />}
+      {selectedItem && (
+        <ItemDetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItemId(null)}
+          onSave={(updates) => updateItem(selectedItem.id, updates)}
+        />
+      )}
     </>
   )
 }

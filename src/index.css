@@ -554,9 +554,32 @@ a {
   width: 100%;
 }
 
-.modal-submit:disabled {
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.modal-actions > * {
+  flex: 1;
+  width: auto;
+  margin: 0;
+}
+
+.secondary-button {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.cta-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* Item detail modal */
