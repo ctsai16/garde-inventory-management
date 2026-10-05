@@ -1,11 +1,28 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 const InventoryContext = createContext(null)
 
-const initialItems = []
+const STORAGE_KEY = 'garde-inventory-items'
+
+function loadItems() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    return Array.isArray(saved) ? saved : []
+  } catch {
+    return []
+  }
+}
 
 export function InventoryProvider({ children }) {
-  const [items, setItems] = useState(initialItems)
+  const [items, setItems] = useState(loadItems)
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    } catch {
+      // storage unavailable or full; keep working in memory
+    }
+  }, [items])
 
   const addItem = useCallback((item) => {
     setItems((prev) => {
