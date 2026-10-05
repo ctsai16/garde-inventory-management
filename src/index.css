@@ -576,6 +576,13 @@ a {
   font-weight: 800;
 }
 
+.modal-sheet .cta-button,
+.modal-sheet .secondary-button {
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
 .cta-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
