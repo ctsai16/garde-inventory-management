@@ -533,6 +533,10 @@ a {
   outline: none;
 }
 
+.field-input + .field-input {
+  margin-top: 10px;
+}
+
 .field-input:focus {
   border-color: var(--color-primary);
 }
