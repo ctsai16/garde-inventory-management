@@ -4,7 +4,7 @@ import { OTHER_CATEGORY_VALUE, useInventory } from '../context/InventoryContext.
 export default function AddItemModal({ onClose, onSubmit }) {
   const { categories, resolveCategory } = useInventory()
   const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
+  const [notes, setNotes] = useState('')
   const [category, setCategory] = useState(categories[0])
   const [otherCategory, setOtherCategory] = useState('')
   const [quantity, setQuantity] = useState('')
@@ -25,7 +25,7 @@ export default function AddItemModal({ onClose, onSubmit }) {
     if (!canSubmit) return
     onSubmit({
       name: name.trim(),
-      description: description.trim(),
+      notes: notes.trim(),
       category: isOther ? resolveCategory(otherCategory) : category,
       quantity: Number(quantity),
       unit: unit.trim(),
@@ -158,8 +158,8 @@ export default function AddItemModal({ onClose, onSubmit }) {
             <textarea
               id="item-notes"
               className="field-input field-textarea"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
               placeholder="Optional notes"
               rows={2}
             />

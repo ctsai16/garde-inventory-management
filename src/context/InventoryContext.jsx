@@ -17,6 +17,10 @@ function loadList(key) {
   }
 }
 
+function migrateItem({ description, ...item }) {
+  return description !== undefined && item.notes === undefined ? { ...item, notes: description } : item
+}
+
 function saveList(key, list) {
   try {
     localStorage.setItem(key, JSON.stringify(list))
@@ -26,7 +30,7 @@ function saveList(key, list) {
 }
 
 export function InventoryProvider({ children }) {
-  const [items, setItems] = useState(() => loadList(STORAGE_KEY))
+  const [items, setItems] = useState(() => loadList(STORAGE_KEY).map(migrateItem))
   const [customCategories, setCustomCategories] = useState(() => loadList(CATEGORIES_STORAGE_KEY))
 
   useEffect(() => saveList(STORAGE_KEY, items), [items])

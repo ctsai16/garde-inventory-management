@@ -11,7 +11,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
   const { categories, resolveCategory } = useInventory()
   const [isEditing, setIsEditing] = useState(false)
   const [name, setName] = useState(item.name)
-  const [description, setDescription] = useState(item.description || '')
+  const [notes, setNotes] = useState(item.notes || '')
   const [category, setCategory] = useState(item.category)
   const [otherCategory, setOtherCategory] = useState('')
   const [quantity, setQuantity] = useState(String(item.quantity))
@@ -30,7 +30,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
 
   function startEditing() {
     setName(item.name)
-    setDescription(item.description || '')
+    setNotes(item.notes || '')
     setCategory(item.category)
     setOtherCategory('')
     setQuantity(String(item.quantity))
@@ -45,7 +45,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
     if (!canSave) return
     onSave({
       name: name.trim(),
-      description: description.trim(),
+      notes: notes.trim(),
       category: isOther ? resolveCategory(otherCategory) : category,
       quantity: Number(quantity),
       unit: unit.trim(),
@@ -176,8 +176,8 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
               <textarea
                 id="edit-item-notes"
                 className="field-input field-textarea"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                value={notes}
+                onChange={(event) => setNotes(event.target.value)}
                 placeholder="Optional notes"
                 rows={2}
               />
@@ -228,7 +228,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
 
               <div className="field-group">
                 <div className="field-label">Notes</div>
-                <div className="detail-value">{item.description || 'No notes added'}</div>
+                <div className="detail-value">{item.notes || 'No notes added'}</div>
               </div>
             </div>
 
