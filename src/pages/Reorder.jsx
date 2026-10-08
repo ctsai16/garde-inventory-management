@@ -1,32 +1,38 @@
+import { useMemo, useState } from 'react'
 import { useInventory } from '../context/InventoryContext.jsx'
+import ItemDetailModal from '../components/ItemDetailModal.jsx'
+import ItemBrowser from '../components/ItemBrowser.jsx'
+
+function getNeedBadge(item) {
+  return { label: `NEED ${item.minQuantity - item.quantity}`, tone: 'danger' }
+}
 
 export default function Reorder() {
-  const { stats } = useInventory()
-  const { lowStockItems } = stats
+  const { items, stats, updateItem } = useInventory()
+  const [selectedItemId, setSelectedItemId] = useState(null)
+
+  const selectedItem = useMemo(
+    () => items.find((item) => item.id === selectedItemId) ?? null,
+    [items, selectedItemId],
+  )
 
   return (
     <>
       <div className="inv-title">Reorder</div>
 
-      {lowStockItems.length === 0 ? (
-        <div className="empty-state">Nothing to reorder. All items are stocked.</div>
-      ) : (
-        <div className="category-card">
-          {lowStockItems.map((item) => (
-            <div className="item-row" key={item.id}>
-              <div className="item-bar" style={{ background: 'var(--color-danger)' }} />
-              <div className="item-info">
-                <div className="item-name">{item.name}</div>
-                <div className="item-meta">
-                  {item.quantity} {item.unit} &middot; min {item.minQuantity}
-                </div>
-              </div>
-              <div className="item-badge" style={{ color: 'var(--color-danger)', background: 'var(--color-danger-bg)' }}>
-                NEED {item.minQuantity - item.quantity}
-              </div>
-            </div>
-          ))}
-        </div>
+      <ItemBrowser
+        items={stats.lowStockItems}
+        emptyMessage="Nothing to reorder. All items are stocked."
+        getBadge={getNeedBadge}
+        onItemClick={(item) => setSelectedItemId(item.id)}
+      />
+
+      {selectedItem && (
+        <ItemDetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItemId(null)}
+          onSave={(updates) => updateItem(selectedItem.id, updates)}
+        />
       )}
     </>
   )
