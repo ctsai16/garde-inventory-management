@@ -772,3 +772,56 @@ a {
   font-size: 13px;
   color: var(--color-text-secondary);
 }
+
+/* Account */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.history-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.history-summary {
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.history-flag {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-top: 6px;
+}
+
+.signout-button {
+  display: block;
+  width: 100%;
+  margin-top: 28px;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
+.signout-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.signout-note {
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-text-muted);
+}

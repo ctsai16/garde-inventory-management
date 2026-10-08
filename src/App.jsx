@@ -6,6 +6,7 @@ import Inventory from './pages/Inventory.jsx'
 import Scan from './pages/Scan.jsx'
 import Reorder from './pages/Reorder.jsx'
 import Insights from './pages/Insights.jsx'
+import Account from './pages/Account.jsx'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/scan" element={<Scan />} />
             <Route path="/reorder" element={<Reorder />} />
             <Route path="/insights" element={<Insights />} />
+            <Route path="/account" element={<Account />} />
           </Routes>
         </div>
         <BottomNav />

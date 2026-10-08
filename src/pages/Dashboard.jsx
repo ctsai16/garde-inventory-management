@@ -31,7 +31,9 @@ export default function Dashboard() {
           <div className="dash-eyebrow">Bincho BBQ &amp; Bar</div>
           <div className="dash-greeting">Good afternoon, Jordan</div>
         </div>
-        <div className="dash-avatar">J</div>
+        <Link to="/account" className="dash-avatar" aria-label="Account">
+          J
+        </Link>
       </div>
 
       <div className="health-card">
