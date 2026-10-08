@@ -571,6 +571,7 @@ a {
 }
 
 .secondary-button {
+  text-align: center;
   background: #ffffff;
   border: 1px solid var(--color-border);
   color: var(--color-text);
