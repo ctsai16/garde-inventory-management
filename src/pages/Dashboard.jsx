@@ -35,7 +35,7 @@ export default function Dashboard() {
         <AccountButton />
       </div>
 
-      <div className="health-card">
+      <Link to="/inventory" className="health-card">
         <div
           className="health-ring"
           style={{
@@ -48,7 +48,7 @@ export default function Dashboard() {
           <div className="health-title">Inventory Health</div>
           <div className="health-subtitle">{healthMessage(healthPercent, lowStockCount)}</div>
         </div>
-      </div>
+      </Link>
 
       <div className="stats-grid">
         <Link to="/reorder" className="stat-card">
