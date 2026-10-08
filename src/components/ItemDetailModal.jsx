@@ -70,6 +70,9 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             <div className="field-group">
               <label className="field-label" htmlFor="edit-item-name">
                 Item name
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
               </label>
               <input
                 id="edit-item-name"
@@ -84,9 +87,13 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             <div className="field-group">
               <label className="field-label" htmlFor="edit-item-category">
                 Category
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
               </label>
               <select
                 id="edit-item-category"
+                required
                 className="field-input"
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
@@ -115,6 +122,9 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
               <div className="field-group">
                 <label className="field-label" htmlFor="edit-item-quantity">
                   Count
+                  <span className="required-mark" aria-hidden="true">
+                    {' '}*
+                  </span>
                 </label>
                 <input
                   id="edit-item-quantity"
@@ -129,6 +139,9 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
               <div className="field-group">
                 <label className="field-label" htmlFor="edit-item-unit">
                   Unit
+                  <span className="required-mark" aria-hidden="true">
+                    {' '}*
+                  </span>
                 </label>
                 <input
                   id="edit-item-unit"
@@ -144,6 +157,9 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             <div className="field-group">
               <label className="field-label" htmlFor="edit-item-min">
                 Minimum quantity
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
               </label>
               <input
                 id="edit-item-min"

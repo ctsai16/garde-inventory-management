@@ -48,6 +48,9 @@ export default function AddItemModal({ onClose, onSubmit }) {
           <div className="field-group">
             <label className="field-label" htmlFor="item-name">
               Item name
+              <span className="required-mark" aria-hidden="true">
+                {' '}*
+              </span>
             </label>
             <input
               id="item-name"
@@ -63,9 +66,13 @@ export default function AddItemModal({ onClose, onSubmit }) {
           <div className="field-group">
             <label className="field-label" htmlFor="item-category">
               Category
+              <span className="required-mark" aria-hidden="true">
+                {' '}*
+              </span>
             </label>
             <select
               id="item-category"
+              required
               className="field-input"
               value={category}
               onChange={(event) => setCategory(event.target.value)}
@@ -94,6 +101,9 @@ export default function AddItemModal({ onClose, onSubmit }) {
             <div className="field-group">
               <label className="field-label" htmlFor="item-quantity">
                 Count
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
               </label>
               <input
                 id="item-quantity"
@@ -109,6 +119,9 @@ export default function AddItemModal({ onClose, onSubmit }) {
             <div className="field-group">
               <label className="field-label" htmlFor="item-unit">
                 Unit
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
               </label>
               <input
                 id="item-unit"
@@ -125,6 +138,9 @@ export default function AddItemModal({ onClose, onSubmit }) {
           <div className="field-group">
             <label className="field-label" htmlFor="item-min">
               Minimum quantity
+              <span className="required-mark" aria-hidden="true">
+                {' '}*
+              </span>
             </label>
             <input
               id="item-min"
