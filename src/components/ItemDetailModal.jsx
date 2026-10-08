@@ -195,7 +195,6 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
         ) : (
           <>
             <div className="detail-badge-row">
-              <span className="detail-category-pill">{item.category}</span>
               <span
                 className="item-badge"
                 style={{
@@ -208,6 +207,11 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             </div>
 
             <div className="field-list">
+              <div className="field-group">
+                <div className="field-label">Category</div>
+                <div className="detail-value">{item.category}</div>
+              </div>
+
               <div className="field-group">
                 <div className="field-label">Description</div>
                 <div className="detail-value">{item.description || 'No description added'}</div>
