@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom'
+import AccountButton from '../components/AccountButton.jsx'
 
 export default function Scan() {
   const navigate = useNavigate()
 
   return (
     <>
-      <div className="inv-title">Scan</div>
+      <div className="inv-header">
+        <div className="inv-title">Scan</div>
+        <AccountButton />
+      </div>
       <div className="scan-actions">
         <button type="button" className="scan-option scan-option-secondary" disabled>
           Scan Invoice

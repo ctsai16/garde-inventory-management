@@ -859,3 +859,10 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}

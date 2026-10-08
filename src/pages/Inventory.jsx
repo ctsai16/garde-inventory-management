@@ -5,6 +5,7 @@ import { PlusIcon } from '../components/Icons.jsx'
 import AddItemModal from '../components/AddItemModal.jsx'
 import ItemDetailModal from '../components/ItemDetailModal.jsx'
 import ItemBrowser from '../components/ItemBrowser.jsx'
+import AccountButton from '../components/AccountButton.jsx'
 
 function getStockBadge(item) {
   const isLow = item.quantity < item.minQuantity
@@ -31,10 +32,13 @@ export default function Inventory() {
     <>
       <div className="inv-header">
         <div className="inv-title">Inventory</div>
-        <button type="button" className="add-item-btn" onClick={() => setIsAddModalOpen(true)}>
-          <PlusIcon />
-          Add Item
-        </button>
+        <div className="header-actions">
+          <button type="button" className="add-item-btn" onClick={() => setIsAddModalOpen(true)}>
+            <PlusIcon />
+            Add Item
+          </button>
+          <AccountButton />
+        </div>
       </div>
 
       <ItemBrowser

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useInventory } from '../context/InventoryContext.jsx'
 import ItemDetailModal from '../components/ItemDetailModal.jsx'
 import ItemBrowser from '../components/ItemBrowser.jsx'
+import AccountButton from '../components/AccountButton.jsx'
 
 function getNeedBadge(item) {
   return { label: `NEED ${item.minQuantity - item.quantity}`, tone: 'danger' }
@@ -18,7 +19,10 @@ export default function Reorder() {
 
   return (
     <>
-      <div className="inv-title">Reorder</div>
+      <div className="inv-header">
+        <div className="inv-title">Reorder</div>
+        <AccountButton />
+      </div>
 
       <ItemBrowser
         items={stats.lowStockItems}

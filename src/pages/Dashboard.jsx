@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useInventory } from '../context/InventoryContext.jsx'
 import InventoryCountModal from '../components/InventoryCountModal.jsx'
+import AccountButton from '../components/AccountButton.jsx'
 import {
   WarningTriangleIcon,
   ClockIcon,
@@ -31,9 +32,7 @@ export default function Dashboard() {
           <div className="dash-eyebrow">Bincho BBQ &amp; Bar</div>
           <div className="dash-greeting">Good afternoon, Jordan</div>
         </div>
-        <Link to="/account" className="dash-avatar" aria-label="Account">
-          J
-        </Link>
+        <AccountButton />
       </div>
 
       <div className="health-card">
