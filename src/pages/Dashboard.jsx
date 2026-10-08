@@ -47,7 +47,7 @@ export default function Dashboard() {
       </div>
 
       <div className="stats-grid">
-        <Link to="/inventory" className="stat-card">
+        <Link to="/reorder" className="stat-card">
           <div className="stat-icon" style={{ background: 'var(--color-danger-bg)', color: 'var(--color-danger)' }}>
             <WarningTriangleIcon />
           </div>
