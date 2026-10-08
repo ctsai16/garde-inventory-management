@@ -4,6 +4,7 @@ const InventoryContext = createContext(null)
 
 const STORAGE_KEY = 'garde-inventory-items'
 const CATEGORIES_STORAGE_KEY = 'garde-inventory-custom-categories'
+const COUNT_HISTORY_STORAGE_KEY = 'garde-inventory-count-history'
 
 export const OTHER_CATEGORY_VALUE = '__other__'
 export const DEFAULT_CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
@@ -32,9 +33,11 @@ function saveList(key, list) {
 export function InventoryProvider({ children }) {
   const [items, setItems] = useState(() => loadList(STORAGE_KEY).map(migrateItem))
   const [customCategories, setCustomCategories] = useState(() => loadList(CATEGORIES_STORAGE_KEY))
+  const [countHistory, setCountHistory] = useState(() => loadList(COUNT_HISTORY_STORAGE_KEY))
 
   useEffect(() => saveList(STORAGE_KEY, items), [items])
   useEffect(() => saveList(CATEGORIES_STORAGE_KEY, customCategories), [customCategories])
+  useEffect(() => saveList(COUNT_HISTORY_STORAGE_KEY, countHistory), [countHistory])
 
   const categories = useMemo(() => {
     const all = [...DEFAULT_CATEGORIES, ...customCategories]
@@ -66,6 +69,19 @@ export function InventoryProvider({ children }) {
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updates } : item)))
   }, [])
 
+  const saveCount = useCallback((results) => {
+    setCountHistory((prev) => {
+      const nextId = prev.reduce((max, entry) => Math.max(max, entry.id), 0) + 1
+      return [...prev, { id: nextId, date: new Date().toISOString(), results }]
+    })
+    setItems((prev) =>
+      prev.map((item) => {
+        const result = results.find((entry) => entry.itemId === item.id)
+        return result && result.actual !== null ? { ...item, quantity: result.actual } : item
+      }),
+    )
+  }, [])
+
   const stats = useMemo(() => {
     const lowStockItems = items.filter((item) => item.quantity < item.minQuantity)
     const inventoryValue = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
@@ -81,8 +97,8 @@ export function InventoryProvider({ children }) {
   }, [items])
 
   const value = useMemo(
-    () => ({ items, stats, categories, addItem, updateItem, resolveCategory }),
-    [items, stats, categories, addItem, updateItem, resolveCategory],
+    () => ({ items, stats, categories, countHistory, addItem, updateItem, resolveCategory, saveCount }),
+    [items, stats, categories, countHistory, addItem, updateItem, resolveCategory, saveCount],
   )
 
   return <InventoryContext.Provider value={value}>{children}</InventoryContext.Provider>

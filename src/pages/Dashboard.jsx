@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useInventory } from '../context/InventoryContext.jsx'
+import InventoryCountModal from '../components/InventoryCountModal.jsx'
 import {
   WarningTriangleIcon,
   ClockIcon,
@@ -18,6 +20,7 @@ function healthMessage(healthPercent, lowStockCount) {
 
 export default function Dashboard() {
   const { stats } = useInventory()
+  const [isCountOpen, setIsCountOpen] = useState(false)
   const { lowStockCount, inventoryValue, healthPercent } = stats
   const ringDegrees = Math.round((healthPercent / 100) * 360)
 
@@ -79,7 +82,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <button type="button" className="cta-button">
+      <button type="button" className="cta-button" onClick={() => setIsCountOpen(true)}>
         <ArrowRightIcon />
         Start Inventory Count
       </button>
@@ -99,6 +102,8 @@ export default function Dashboard() {
           <span className="quick-action-label">Scan Invoice</span>
         </Link>
       </div>
+
+      {isCountOpen && <InventoryCountModal onClose={() => setIsCountOpen(false)} />}
     </>
   )
 }
