@@ -29,6 +29,7 @@ export default function Account() {
             return (
               <div className="history-card" key={entry.id}>
                 <div className="history-time">{formatTimestamp(entry.date)}</div>
+                {entry.countedBy && <div className="history-by">Counted by {entry.countedBy}</div>}
                 <div className="history-summary">
                   {correct} of {entry.results.length} correct
                 </div>

@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useInventory } from '../context/InventoryContext.jsx'
 
 export default function InventoryCountModal({ onClose }) {
-  const { items, saveCount } = useInventory()
+  const { items, countHistory, saveCount } = useInventory()
+  const [countedBy, setCountedBy] = useState(() => countHistory[countHistory.length - 1]?.countedBy ?? '')
   const [marks, setMarks] = useState({})
   const [actuals, setActuals] = useState({})
   const [error, setError] = useState('')
@@ -16,6 +17,10 @@ export default function InventoryCountModal({ onClose }) {
   }
 
   function handleFinish() {
+    if (countedBy.trim() === '') {
+      setError('Enter your name to finish.')
+      return
+    }
     if (checkedCount < items.length) {
       setError('Check every item to finish.')
       return
@@ -32,7 +37,7 @@ export default function InventoryCountModal({ onClose }) {
         actual: hasActual ? Number(actualText) : null,
       }
     })
-    saveCount(results)
+    saveCount(results, countedBy.trim())
     setSummary({
       correct: results.filter((entry) => entry.status === 'correct').length,
       incorrect: results.filter((entry) => entry.status === 'incorrect').length,
@@ -67,6 +72,26 @@ export default function InventoryCountModal({ onClose }) {
           <div className="empty-state">No items to count yet. Add items first.</div>
         ) : (
           <>
+            <div className="field-group count-name">
+              <label className="field-label" htmlFor="counted-by">
+                Counted by
+                <span className="required-mark" aria-hidden="true">
+                  {' '}*
+                </span>
+              </label>
+              <input
+                id="counted-by"
+                className="field-input"
+                type="text"
+                value={countedBy}
+                onChange={(event) => {
+                  setCountedBy(event.target.value)
+                  setError('')
+                }}
+                placeholder="Your name"
+                required
+              />
+            </div>
             <div className="count-hint">Mark each item as correct or not. Enter the actual count for anything that's off.</div>
             <div className="count-progress">
               <div className="count-progress-fill" style={{ width: `${(checkedCount / items.length) * 100}%` }} />

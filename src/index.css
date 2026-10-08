@@ -825,3 +825,13 @@ a {
   text-align: center;
   color: var(--color-text-muted);
 }
+
+.count-name {
+  margin-bottom: 12px;
+}
+
+.history-by {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}

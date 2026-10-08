@@ -69,10 +69,10 @@ export function InventoryProvider({ children }) {
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updates } : item)))
   }, [])
 
-  const saveCount = useCallback((results) => {
+  const saveCount = useCallback((results, countedBy) => {
     setCountHistory((prev) => {
       const nextId = prev.reduce((max, entry) => Math.max(max, entry.id), 0) + 1
-      return [...prev, { id: nextId, date: new Date().toISOString(), results }]
+      return [...prev, { id: nextId, date: new Date().toISOString(), countedBy, results }]
     })
     setItems((prev) =>
       prev.map((item) => {
