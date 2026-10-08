@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useInventory } from '../context/InventoryContext.jsx'
 import { SearchIcon, FilterIcon, PlusIcon } from '../components/Icons.jsx'
 import AddItemModal from '../components/AddItemModal.jsx'
@@ -10,8 +11,14 @@ export default function Inventory() {
   const { items, categories, addItem, updateItem } = useInventory()
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [isAddModalOpen, setIsAddModalOpen] = useState(Boolean(location.state?.openAddItem))
   const [selectedItemId, setSelectedItemId] = useState(null)
+
+  useEffect(() => {
+    if (location.state?.openAddItem) navigate(location.pathname, { replace: true, state: null })
+  }, [location, navigate])
 
   const selectedItem = useMemo(
     () => items.find((item) => item.id === selectedItemId) ?? null,
