@@ -174,7 +174,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
 
             <div className="field-group">
               <label className="field-label" htmlFor="edit-item-expiration">
-                Expiration date
+                Expiration date (if applicable)
               </label>
               <input
                 id="edit-item-expiration"

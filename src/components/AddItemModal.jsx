@@ -156,7 +156,7 @@ export default function AddItemModal({ onClose, onSubmit }) {
 
           <div className="field-group">
             <label className="field-label" htmlFor="item-expiration">
-              Expiration date
+              Expiration date (if applicable)
             </label>
             <input
               id="item-expiration"
