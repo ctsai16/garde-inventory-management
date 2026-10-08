@@ -835,3 +835,27 @@ a {
   color: var(--color-text-secondary);
   margin-top: 2px;
 }
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.account-header .inv-title {
+  margin-bottom: 0;
+}
+
+.back-button {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

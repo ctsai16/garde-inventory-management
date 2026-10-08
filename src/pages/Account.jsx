@@ -1,4 +1,6 @@
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useInventory } from '../context/InventoryContext.jsx'
+import { ArrowLeftIcon } from '../components/Icons.jsx'
 
 function formatTimestamp(iso) {
   return new Date(iso).toLocaleString(undefined, {
@@ -12,11 +14,23 @@ function formatTimestamp(iso) {
 
 export default function Account() {
   const { countHistory } = useInventory()
+  const navigate = useNavigate()
+  const location = useLocation()
   const entries = [...countHistory].reverse()
 
   return (
     <>
-      <div className="inv-title">Account</div>
+      <div className="account-header">
+        <button
+          type="button"
+          className="back-button"
+          aria-label="Go back"
+          onClick={() => (location.key === 'default' ? navigate('/') : navigate(-1))}
+        >
+          <ArrowLeftIcon />
+        </button>
+        <div className="inv-title">Account</div>
+      </div>
 
       <div className="section-label">Inventory count history</div>
       {entries.length === 0 ? (
