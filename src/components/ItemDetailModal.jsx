@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce']
+const CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
 
 function formatExpiration(expirationDate) {
   if (!expirationDate) return 'Not set'

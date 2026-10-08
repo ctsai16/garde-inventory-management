@@ -4,8 +4,8 @@ import { SearchIcon, FilterIcon, PlusIcon } from '../components/Icons.jsx'
 import AddItemModal from '../components/AddItemModal.jsx'
 import ItemDetailModal from '../components/ItemDetailModal.jsx'
 
-const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce']
-const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods']
+const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
+const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods', 'Condiments']
 
 export default function Inventory() {
   const { items, addItem, updateItem } = useInventory()
