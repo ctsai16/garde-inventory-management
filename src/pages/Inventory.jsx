@@ -4,11 +4,10 @@ import { SearchIcon, FilterIcon, PlusIcon } from '../components/Icons.jsx'
 import AddItemModal from '../components/AddItemModal.jsx'
 import ItemDetailModal from '../components/ItemDetailModal.jsx'
 
-const CATEGORY_ORDER = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
-const CHIP_ORDER = ['All', 'Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods', 'Condiments']
+const DEFAULT_CHIP_ORDER = ['Meat', 'Produce', 'Alcohol', 'Beverages', 'Dry Goods', 'Condiments']
 
 export default function Inventory() {
-  const { items, addItem, updateItem } = useInventory()
+  const { items, categories, addItem, updateItem } = useInventory()
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
@@ -21,8 +20,9 @@ export default function Inventory() {
 
   const chips = useMemo(() => {
     const present = new Set(items.map((item) => item.category))
-    return CHIP_ORDER.filter((chip) => chip === 'All' || present.has(chip))
-  }, [items])
+    const order = [...DEFAULT_CHIP_ORDER, ...categories.filter((category) => !DEFAULT_CHIP_ORDER.includes(category))]
+    return ['All', ...order.filter((chip) => present.has(chip))]
+  }, [items, categories])
 
   const filteredItems = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -34,11 +34,11 @@ export default function Inventory() {
   }, [items, search, activeCategory])
 
   const groupedSections = useMemo(() => {
-    return CATEGORY_ORDER.map((category) => ({
+    return categories.map((category) => ({
       category,
       items: filteredItems.filter((item) => item.category === category),
     })).filter((group) => group.items.length > 0)
-  }, [filteredItems])
+  }, [filteredItems, categories])
 
   return (
     <>

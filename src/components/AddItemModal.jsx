@@ -1,17 +1,24 @@
 import { useState } from 'react'
-
-const CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
+import { OTHER_CATEGORY_VALUE, useInventory } from '../context/InventoryContext.jsx'
 
 export default function AddItemModal({ onClose, onSubmit }) {
+  const { categories, resolveCategory } = useInventory()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [category, setCategory] = useState(CATEGORIES[0])
+  const [category, setCategory] = useState(categories[0])
+  const [otherCategory, setOtherCategory] = useState('')
   const [quantity, setQuantity] = useState('')
   const [unit, setUnit] = useState('')
   const [minQuantity, setMinQuantity] = useState('')
   const [expirationDate, setExpirationDate] = useState('')
 
-  const canSubmit = name.trim() !== '' && unit.trim() !== '' && quantity !== '' && minQuantity !== ''
+  const isOther = category === OTHER_CATEGORY_VALUE
+  const canSubmit =
+    name.trim() !== '' &&
+    unit.trim() !== '' &&
+    quantity !== '' &&
+    minQuantity !== '' &&
+    (!isOther || otherCategory.trim() !== '')
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -19,7 +26,7 @@ export default function AddItemModal({ onClose, onSubmit }) {
     onSubmit({
       name: name.trim(),
       description: description.trim(),
-      category,
+      category: isOther ? resolveCategory(otherCategory) : category,
       quantity: Number(quantity),
       unit: unit.trim(),
       minQuantity: Number(minQuantity),
@@ -77,12 +84,24 @@ export default function AddItemModal({ onClose, onSubmit }) {
               value={category}
               onChange={(event) => setCategory(event.target.value)}
             >
-              {CATEGORIES.map((option) => (
+              {categories.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
               ))}
+              <option value={OTHER_CATEGORY_VALUE}>Other</option>
             </select>
+            {isOther && (
+              <input
+                className="field-input"
+                type="text"
+                value={otherCategory}
+                onChange={(event) => setOtherCategory(event.target.value)}
+                placeholder="New category name"
+                aria-label="New category name"
+                required
+              />
+            )}
           </div>
 
           <div className="field-row">

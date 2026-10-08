@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-const CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
+import { OTHER_CATEGORY_VALUE, useInventory } from '../context/InventoryContext.jsx'
 
 function formatExpiration(expirationDate) {
   if (!expirationDate) return 'Not set'
@@ -9,22 +8,31 @@ function formatExpiration(expirationDate) {
 }
 
 export default function ItemDetailModal({ item, onClose, onSave }) {
+  const { categories, resolveCategory } = useInventory()
   const [isEditing, setIsEditing] = useState(false)
   const [name, setName] = useState(item.name)
   const [description, setDescription] = useState(item.description || '')
   const [category, setCategory] = useState(item.category)
+  const [otherCategory, setOtherCategory] = useState('')
   const [quantity, setQuantity] = useState(String(item.quantity))
   const [unit, setUnit] = useState(item.unit)
   const [minQuantity, setMinQuantity] = useState(String(item.minQuantity))
   const [expirationDate, setExpirationDate] = useState(item.expirationDate || '')
 
   const isLow = item.quantity < item.minQuantity
-  const canSave = name.trim() !== '' && unit.trim() !== '' && quantity !== '' && minQuantity !== ''
+  const isOther = category === OTHER_CATEGORY_VALUE
+  const canSave =
+    name.trim() !== '' &&
+    unit.trim() !== '' &&
+    quantity !== '' &&
+    minQuantity !== '' &&
+    (!isOther || otherCategory.trim() !== '')
 
   function startEditing() {
     setName(item.name)
     setDescription(item.description || '')
     setCategory(item.category)
+    setOtherCategory('')
     setQuantity(String(item.quantity))
     setUnit(item.unit)
     setMinQuantity(String(item.minQuantity))
@@ -38,7 +46,7 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
     onSave({
       name: name.trim(),
       description: description.trim(),
-      category,
+      category: isOther ? resolveCategory(otherCategory) : category,
       quantity: Number(quantity),
       unit: unit.trim(),
       minQuantity: Number(minQuantity),
@@ -97,12 +105,24 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
               >
-                {CATEGORIES.map((option) => (
+                {categories.map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
                 ))}
+                <option value={OTHER_CATEGORY_VALUE}>Other</option>
               </select>
+              {isOther && (
+                <input
+                  className="field-input"
+                  type="text"
+                  value={otherCategory}
+                  onChange={(event) => setOtherCategory(event.target.value)}
+                  placeholder="New category name"
+                  aria-label="New category name"
+                  required
+                />
+              )}
             </div>
 
             <div className="field-row">

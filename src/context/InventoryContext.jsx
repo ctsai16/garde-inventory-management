@@ -3,26 +3,53 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 const InventoryContext = createContext(null)
 
 const STORAGE_KEY = 'garde-inventory-items'
+const CATEGORIES_STORAGE_KEY = 'garde-inventory-custom-categories'
 
-function loadItems() {
+export const OTHER_CATEGORY_VALUE = '__other__'
+export const DEFAULT_CATEGORIES = ['Alcohol', 'Meat', 'Beverages', 'Dry Goods', 'Produce', 'Condiments']
+
+function loadList(key) {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    const saved = JSON.parse(localStorage.getItem(key))
     return Array.isArray(saved) ? saved : []
   } catch {
     return []
   }
 }
 
-export function InventoryProvider({ children }) {
-  const [items, setItems] = useState(loadItems)
+function saveList(key, list) {
+  try {
+    localStorage.setItem(key, JSON.stringify(list))
+  } catch {
+    // storage unavailable or full; keep working in memory
+  }
+}
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-    } catch {
-      // storage unavailable or full; keep working in memory
-    }
-  }, [items])
+export function InventoryProvider({ children }) {
+  const [items, setItems] = useState(() => loadList(STORAGE_KEY))
+  const [customCategories, setCustomCategories] = useState(() => loadList(CATEGORIES_STORAGE_KEY))
+
+  useEffect(() => saveList(STORAGE_KEY, items), [items])
+  useEffect(() => saveList(CATEGORIES_STORAGE_KEY, customCategories), [customCategories])
+
+  const categories = useMemo(() => {
+    const all = [...DEFAULT_CATEGORIES, ...customCategories]
+    items.forEach((item) => {
+      if (!all.includes(item.category)) all.push(item.category)
+    })
+    return all
+  }, [customCategories, items])
+
+  const resolveCategory = useCallback(
+    (name) => {
+      const trimmed = name.trim()
+      const existing = categories.find((category) => category.toLowerCase() === trimmed.toLowerCase())
+      if (existing) return existing
+      setCustomCategories((prev) => [...prev, trimmed])
+      return trimmed
+    },
+    [categories],
+  )
 
   const addItem = useCallback((item) => {
     setItems((prev) => {
@@ -49,7 +76,10 @@ export function InventoryProvider({ children }) {
     }
   }, [items])
 
-  const value = useMemo(() => ({ items, stats, addItem, updateItem }), [items, stats, addItem, updateItem])
+  const value = useMemo(
+    () => ({ items, stats, categories, addItem, updateItem, resolveCategory }),
+    [items, stats, categories, addItem, updateItem, resolveCategory],
+  )
 
   return <InventoryContext.Provider value={value}>{children}</InventoryContext.Provider>
 }
