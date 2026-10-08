@@ -558,6 +558,10 @@ a {
   width: 100%;
 }
 
+.field-list + .modal-submit {
+  margin-top: 28px;
+}
+
 .modal-actions {
   display: flex;
   gap: 10px;
