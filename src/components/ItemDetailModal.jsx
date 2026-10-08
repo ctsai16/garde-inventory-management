@@ -82,20 +82,6 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             </div>
 
             <div className="field-group">
-              <label className="field-label" htmlFor="edit-item-description">
-                Description
-              </label>
-              <textarea
-                id="edit-item-description"
-                className="field-input field-textarea"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                placeholder="Optional notes"
-                rows={2}
-              />
-            </div>
-
-            <div className="field-group">
               <label className="field-label" htmlFor="edit-item-category">
                 Category
               </label>
@@ -183,6 +169,20 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
               />
             </div>
 
+            <div className="field-group">
+              <label className="field-label" htmlFor="edit-item-notes">
+                Notes
+              </label>
+              <textarea
+                id="edit-item-notes"
+                className="field-input field-textarea"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                placeholder="Optional notes"
+                rows={2}
+              />
+            </div>
+
             <div className="modal-actions">
               <button type="button" className="secondary-button" onClick={() => setIsEditing(false)}>
                 Cancel
@@ -208,11 +208,6 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
             </div>
 
             <div className="field-list">
-              <div className="field-group">
-                <div className="field-label">Description</div>
-                <div className="detail-value">{item.description || 'No description added'}</div>
-              </div>
-
               <div className="field-row">
                 <div className="field-group">
                   <div className="field-label">Count</div>
@@ -229,6 +224,11 @@ export default function ItemDetailModal({ item, onClose, onSave }) {
               <div className="field-group">
                 <div className="field-label">Expiration date</div>
                 <div className="detail-value">{formatExpiration(item.expirationDate)}</div>
+              </div>
+
+              <div className="field-group">
+                <div className="field-label">Notes</div>
+                <div className="detail-value">{item.description || 'No notes added'}</div>
               </div>
             </div>
 

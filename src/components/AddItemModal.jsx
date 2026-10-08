@@ -61,20 +61,6 @@ export default function AddItemModal({ onClose, onSubmit }) {
           </div>
 
           <div className="field-group">
-            <label className="field-label" htmlFor="item-description">
-              Description
-            </label>
-            <textarea
-              id="item-description"
-              className="field-input field-textarea"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              placeholder="Optional notes"
-              rows={2}
-            />
-          </div>
-
-          <div className="field-group">
             <label className="field-label" htmlFor="item-category">
               Category
             </label>
@@ -162,6 +148,20 @@ export default function AddItemModal({ onClose, onSubmit }) {
               type="date"
               value={expirationDate}
               onChange={(event) => setExpirationDate(event.target.value)}
+            />
+          </div>
+
+          <div className="field-group">
+            <label className="field-label" htmlFor="item-notes">
+              Notes
+            </label>
+            <textarea
+              id="item-notes"
+              className="field-input field-textarea"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              placeholder="Optional notes"
+              rows={2}
             />
           </div>
 
